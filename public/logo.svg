@@ -1,0 +1,44 @@
+<svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#EAB308" />
+      <stop offset="50%" style="stop-color:#F97316" />
+      <stop offset="100%" style="stop-color:#EAB308" />
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Decorative hexagons -->
+  <path d="M50 30L80 45V75L50 90L20 75V45L50 30Z" fill="none" stroke="url(#titleGradient)" stroke-width="2" opacity="0.5"/>
+  <path d="M720 30L750 45V75L720 90L690 75V45L720 30Z" fill="none" stroke="url(#titleGradient)" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Main title -->
+  <text x="400" y="120" text-anchor="middle" fill="url(#titleGradient)" filter="url(#glow)"
+        style="font-size: 72px; font-weight: bold; font-family: 'Arial Black', sans-serif;">
+    BITCOIN TIGER QUEST
+  </text>
+  
+  <!-- Decorative lines -->
+  <line x1="100" y1="100" x2="300" y2="100" stroke="url(#titleGradient)" stroke-width="2" opacity="0.5"/>
+  <line x1="500" y1="100" x2="700" y2="100" stroke="url(#titleGradient)" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Bitcoin symbol -->
+  <g transform="translate(250,60)" filter="url(#glow)">
+    <path d="M40,0 C17.9,0,0,17.9,0,40 C0,62.1,17.9,80,40,80 C62.1,80,80,62.1,80,40 C80,17.9,62.1,0,40,0z" 
+          fill="url(#titleGradient)" opacity="0.9"/>
+    <path d="M45,20 L35,20 L35,30 L25,30 L25,50 L35,50 L35,60 L45,60 L45,50 L50,50 C55.5,50,60,45.5,60,40 C60,34.5,55.5,30,50,30 L45,30z" 
+          fill="#0a0b1c"/>
+  </g>
+  
+  <!-- Stylized Tiger -->
+  <g transform="translate(470,60)" filter="url(#glow)">
+    <!-- Add tiger path here -->
+  </g>
+</svg> 

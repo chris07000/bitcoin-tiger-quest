@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0a0b1c;
+  color: white;
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 15s linear infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .glow-subtle {
+    filter: drop-shadow(0 0 8px rgba(234,179,8,0.2));
+  }
+
+  .bg-grid-pattern {
+    background-size: 50px 50px;
+    background-image: 
+      linear-gradient(to right, rgba(234,179,8,0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(234,179,8,0.1) 1px, transparent 1px);
+  }
+
+  @keyframes matrix {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100vh);
+    }
+  }
+
+  .animate-matrix {
+    animation: matrix 20s linear infinite;
+  }
+
+  .terminal-cursor::after {
+    content: '_';
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .mascot-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+/* Enhanced glow effects */
+.glow {
+  box-shadow: 
+    0 0 20px theme('colors.yellow.500 / 20%'),
+    0 0 40px theme('colors.yellow.500 / 10%'),
+    0 0 60px theme('colors.yellow.500 / 5%');
+}
+
+.text-glow {
+  text-shadow: 
+    0 0 10px theme('colors.yellow.500 / 50%'),
+    0 0 20px theme('colors.yellow.500 / 25%'),
+    0 0 30px theme('colors.yellow.500 / 10%');
+}
+
+/* Gradient backgrounds */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-via) 50%, var(--tw-gradient-to) 100%);
+} 
