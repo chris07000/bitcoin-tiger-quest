@@ -8,6 +8,8 @@ export default function QuestPage() {
   const [currentQuest] = useState(1)
   const [showMascot, setShowMascot] = useState(false)
   const [mascotMessage, setMascotMessage] = useState('')
+  const [availableKeys] = useState(9) // State voor beschikbare keys
+  const totalKeys = 10
 
   const messages = [
     "Are you bullish enough? 🚀",
@@ -72,10 +74,17 @@ export default function QuestPage() {
       </AnimatePresence>
 
       <div className="max-w-2xl w-full space-y-6 sm:space-y-8">
-        {/* Quest Title */}
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-yellow-500/50 animate-pulse"></div>
-          <h1 className="text-yellow-500/90 font-mono text-lg sm:text-xl">QUEST {currentQuest + 1}</h1>
+        {/* Quest Title met Key Counter */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-yellow-500/50 animate-pulse"></div>
+            <h1 className="text-yellow-500/90 font-mono text-lg sm:text-xl">QUEST {currentQuest + 1}</h1>
+          </div>
+          <div className="bg-black/30 px-4 py-2 rounded-lg backdrop-blur-sm">
+            <span className="font-mono text-xs sm:text-sm text-yellow-500/80">
+              {availableKeys}/{totalKeys} KEYS AVAILABLE
+            </span>
+          </div>
         </div>
 
         {/* Grid Puzzle - aangepaste spacing voor mobiel */}
@@ -91,7 +100,7 @@ export default function QuestPage() {
           </div>
         </div>
 
-        {/* Twitter Instructions - aangepaste padding voor mobiel */}
+        {/* Geüpdatete Twitter Instructions */}
         <div className="bg-black/30 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-3 sm:mb-4">
             <div className="w-2 h-2 rounded-full bg-blue-400/50"></div>
@@ -100,13 +109,18 @@ export default function QuestPage() {
           <div className="font-mono text-xs sm:text-sm space-y-2 text-blue-400/80">
             <p>1. Check <a href="https://x.com/OrdinalTigerBTC" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">@OrdinalTigerBTC</a> Twitter feed for clues</p>
             <p>2. Solve the grid puzzle using the clues</p>
-            <p>3. Tweet your answer and tag <a href="https://x.com/OrdinalTigerBTC" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">@OrdinalTigerBTC</a></p>
-            <p>4. First correct answer wins the key!</p>
+            <p>3. Follow and RT our pinned tweet</p>
+            <p>4. Tweet your answer and tag <a href="https://x.com/OrdinalTigerBTC" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">@OrdinalTigerBTC</a></p>
+            <p>5. First correct answer wins the key!</p>
           </div>
-          <div className="mt-3 sm:mt-4 text-xs font-mono text-blue-400/60">
+          <div className="mt-4 space-y-2">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-400/30"></div>
-              <span>TIP: Our Twitter feed contains essential hints to solve this puzzle</span>
+              <span className="text-xs font-mono text-blue-400/60">TIP: Our Twitter feed contains essential hints to solve this puzzle</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/30"></div>
+              <span className="text-xs font-mono text-yellow-500/60">NOTE: RT & Follow required to be eligible!</span>
             </div>
           </div>
         </div>
