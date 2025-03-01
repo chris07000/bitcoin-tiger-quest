@@ -4,14 +4,16 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import QuestPage from './components/QuestPage'
+import StoryPage from './components/StoryPage'
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
-  const [currentQuest, setCurrentQuest] = useState(0)
-  const [answer, setAnswer] = useState('')
+  const [showStart, setShowStart] = useState(false)
+  const [showStory, setShowStory] = useState(false)
   const [loadingText, setLoadingText] = useState('Initializing')
   const [blockHeight, setBlockHeight] = useState(0)
   const [hashRate, setHashRate] = useState('0.00')
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
 
   useEffect(() => {
     // Simuleer blockchain statistieken
@@ -34,6 +36,7 @@ export default function Home() {
 
     setTimeout(() => {
       setIsLoading(false)
+      setShowStart(true)
       clearInterval(interval)
       clearInterval(textInterval)
     }, 6000)
@@ -43,6 +46,29 @@ export default function Home() {
       clearInterval(textInterval)
     }
   }, [])
+
+  useEffect(() => {
+    setAudio(new Audio('/tiger-voice.mp3'))
+  }, [])
+
+  const startStory = () => {
+    if (audio) {
+      audio.currentTime = 0
+      audio.play().catch(error => {
+        console.error('Failed to play audio:', error)
+      })
+    }
+    
+    setShowStart(false)
+    setShowStory(true)
+  }
+
+  const completeStory = () => {
+    if (audio) {
+      audio.pause()
+    }
+    setShowStory(false)
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0b1c] relative overflow-hidden">
@@ -66,7 +92,7 @@ export default function Home() {
         ))}
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.div
             initial={{ opacity: 0 }}
@@ -137,6 +163,63 @@ export default function Home() {
               </div>
             </div>
           </motion.div>
+        ) : showStart ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="h-screen flex items-center justify-center p-4 relative"
+          >
+            <div className="text-center space-y-8">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.02, 1],
+                  textShadow: ["0 0 20px rgba(234, 179, 8, 0.2)", "0 0 40px rgba(234, 179, 8, 0.4)", "0 0 20px rgba(234, 179, 8, 0.2)"]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                <Image
+                  src="/tiger-pixel.png"
+                  alt="Bitcoin Tiger"
+                  width={120}
+                  height={120}
+                  className="mx-auto mb-6 glow-subtle"
+                />
+                <h2 className="text-yellow-500/90 font-mono text-2xl sm:text-3xl font-bold">
+                  BITCOIN TIGER PROTOCOL
+                </h2>
+              </motion.div>
+
+              <div className="space-y-4 mb-8">
+                <p className="text-yellow-500/70 font-mono text-sm sm:text-base">
+                  A legendary tale awaits...
+                </p>
+                <p className="text-yellow-500/50 font-mono text-xs">
+                  🔊 Enable sound for the full experience
+                </p>
+              </div>
+
+              <motion.button
+                onClick={startStory}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 
+                         hover:from-yellow-500/30 hover:to-yellow-600/30
+                         text-yellow-500 font-mono text-lg py-4 px-8 rounded-lg 
+                         backdrop-blur-sm transition-all duration-300 
+                         border border-yellow-500/30 hover:border-yellow-500/50
+                         shadow-lg shadow-yellow-500/10 hover:shadow-yellow-500/20"
+              >
+                INITIALIZE PROTOCOL
+              </motion.button>
+            </div>
+          </motion.div>
+        ) : showStory ? (
+          <StoryPage onComplete={completeStory} />
         ) : (
           <QuestPage />
         )}
