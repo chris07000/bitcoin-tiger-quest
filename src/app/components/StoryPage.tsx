@@ -14,6 +14,7 @@ export default function StoryPage({ onComplete }: StoryPageProps) {
   const [showPortal, setShowPortal] = useState(false)
   const [hideText, setHideText] = useState(false)
   const [storyStarted, setStoryStarted] = useState(false)
+  const [showFlash, setShowFlash] = useState(false)
 
   const storyLines = [
     "> INITIALIZING BITCOIN TIGER PROTOCOL_",
@@ -61,9 +62,10 @@ export default function StoryPage({ onComplete }: StoryPageProps) {
           if (currentLine === storyLines.length - 1) {
             setTimeout(() => setHideText(true), 1000)
             setTimeout(() => setShowPortal(true), 2000)
+            setTimeout(() => setShowFlash(true), 14000)
             setTimeout(() => {
               onComplete()
-            }, 8000)
+            }, 14500)
             clearInterval(typingInterval)
           }
           setCurrentLine(prev => prev + 1)
@@ -76,11 +78,11 @@ export default function StoryPage({ onComplete }: StoryPageProps) {
   }, [currentLine, currentChar, onComplete, storyLines])
 
   return (
-    <div className="h-screen flex items-center justify-center p-4 relative">
+    <div className="h-screen flex flex-col items-center justify-center p-4 relative">
       <motion.div
         animate={{ opacity: hideText ? 0 : 1 }}
         transition={{ duration: 1 }}
-        className="w-full max-w-2xl relative z-10"
+        className="w-full max-w-2xl relative z-40"
       >
         <div className="bg-black/20 rounded-lg p-3 sm:p-6 backdrop-blur-sm">
           <div className="flex items-center gap-2 mb-4">
@@ -139,6 +141,18 @@ export default function StoryPage({ onComplete }: StoryPageProps) {
               />
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showFlash && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 bg-white z-50"
+          />
         )}
       </AnimatePresence>
     </div>
